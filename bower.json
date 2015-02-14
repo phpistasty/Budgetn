@@ -1,0 +1,21 @@
+{
+  "name": "budgetn",
+  "version": "0.0.0",
+  "authors": [
+    "steve <phpistasty@gmail.com>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.3.12",
+    "angular-local-storage": "~0.1.5",
+    "angular-google-chart": "~0.0.11"
+  }
+}

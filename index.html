@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en" data-ng-app="budgetn">
+<head>
+    <meta charset="UTF-8">
+    <title>Budgetn</title>
+
+    <script src="vendor/angular/angular.min.js" type="text/javascript"></script>
+    <script src="vendor/angular-local-storage/dist/angular-local-storage.min.js" type="text/javascript"></script>
+    <script src="vendor/angular-google-chart/ng-google-chart.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="vendor/angular/angular-csp.css" />
+    <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'>
+    <link href="css/styles.css" rel="stylesheet" />
+</head>
+<body>
+
+    <header>
+        <h1>Budgetn</h1>
+    </header>
+
+    <div data-ng-controller="BalanceSheet">
+        <div data-ng-bind="lineItemForm.interval"></div>
+        <div data-ng-bind="type(lineItemForm.interval)"></div>
+        <form data-ng-submit="" class="lineItemForm">
+            Name: <input type="text" name="name" data-ng-model="lineItemForm.name" ng-model-options="{ debounce: 250 }" /> <br />
+            Value: <input type="text" name="value" data-ng-model="lineItemForm.value" ng-model-options="{ debounce: 250 }" /> <br />
+            <select data-ng-model="lineItemForm.interval">
+                <option data-ng-value="''+$index" data-ng-repeat="interval in intervals" data-ng-bind="interval.label"></option>
+            </select>
+            <br />
+            <ul class="labels">
+                <li class="floatList" data-ng-repeat="label in labels">
+                    <input type="radio" name="label" data-ng-value="$index" data-ng-attr-id="{{'label-'+$index}}" data-ng-model="lineItemForm.label" />
+                    <label data-ng-attr-for="{{'label-'+$index}}" data-ng-bind="label.label"></label>
+                </li>
+                <li class="floatList">
+
+                    <input type="text" data-ng-model="newLabel" placeholder="New Label"/>
+                    <input type="button" value="Add Label" data-ng-click="labels.push({label : newLabel}); newLabel = '';"/>
+                </li>
+            </ul>
+
+            <input type="submit" name="button" data-ng-click="addLineItem(1)" value="+" />
+            <input type="submit" name="button" data-ng-click="addLineItem(-1)" value="-" />
+        </form>
+        <table class="ledger">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Label</th>
+                    <th>Name</th>
+                    <th data-ng-repeat="interval in intervals" data-ng-bind="interval.label"></th>
+                </tr>
+            </thead>
+            <tbody data-ng-repeat="label in labels" data-ng-init="labelIndex = $index">
+                <tr class="item" data-ng-repeat="lineItem in ledger" data-ng-if="lineItem.label === labelIndex">
+                    <td><a data-ng-click="removeItem($index)"> - </a></td>
+                    <td data-ng-bind="labels[lineItem.label].label"></td>
+                    <td data-ng-bind="lineItem.name"></td>
+                    <td editable="true"
+                        data-ng-blud="saveVal(this.textNode)"
+                        data-ng-bind="intVal | currency"
+                        data-ng-repeat = "interval in intervals"
+                        data-ng-class="{'negative':intVal < 0}"
+                        data-ng-init="intVal = (lineItem.value * intervals[lineItem.interval].toDay) / interval.toDay; updateSum($index, intVal);">
+                    </td>
+                </tr>
+            </tbody>
+            <tr>
+                <td colspan="2"></td>
+                <td>Total:</td>
+                <td data-ng-repeat = "interval in intervals"
+                    data-ng-bind="interval.sum | currency">
+                </td>
+            </tr>
+        </table>
+        <div google-chart chart="expenseChart" style="height: 400px; width: 400px; position: relative;"></div>
+        <input type="button" value="Save" data-ng-click="save()" />
+        <input type="button" value="Delete Ledger" data-ng-clck="deleteLedger()" />
+
+    </div>
+
+    <footer>
+        &copy; 2015 Steven Morgan
+    </footer>
+    <script type="text/javascript" src="js/app.js"></script>
+</body>
+</html>

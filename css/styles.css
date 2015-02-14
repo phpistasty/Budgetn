@@ -1,0 +1,81 @@
+html, body{
+    margin:0;
+    padding:0;
+    height:100%;
+    width:100%;
+    background: #F2F0DF;
+    font-family: "Lato", sans-serif;
+    font-size:10px;
+}
+
+header{
+    display:block;
+    border-bottom:1px dashed #607890;
+    background: #CACCB6;
+    margin:0;
+}
+header > h1{
+    text-align:center;
+    padding:75px;
+    margin:0;
+    font-size:5.5rem;
+    color: #8E9E82;
+}
+footer{
+    text-align:center;
+}
+a{
+    cursor : pointer;
+}
+.lineItemForm{
+    margin:20px auto;
+    max-width:800px;
+    min-width:300px;
+    width:80%;
+}
+.ledger{
+    margin:20px auto;
+    font-size:1.8rem;
+}
+.ledger .item{
+    text-align:center;
+}
+.ledger th{
+    padding:3px 10px;
+}
+.ledger .item .negative{
+    color : #F00;
+}
+.floatList{
+    float:left;
+}
+.labels {
+    list-style-type:none;
+    overflow:auto;
+}
+.labels .floatList{
+    width: 150px;
+    padding:10px;
+    margin:0px;
+}
+.labels input[type="radio"]{
+    display:none;
+}
+.labels label{
+    border-radius:2px;
+    border:1px solid #CCC;
+    padding:3px 8px;
+    font-size:1.4rem;
+    color : #8E9E82;
+    border-color : #8E9E82;
+    background : #CACCB6;
+}
+
+.labels input:checked+label{
+    border-color: #607890;
+    color :  #607890;
+}
+th.labelHeader{
+  text-align:left;
+}
+
