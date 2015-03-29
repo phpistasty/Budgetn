@@ -1,4 +1,4 @@
-var app = angular.module('budgetn', ['LocalStorageModule', 'googlechart']);
+var app = angular.module('budgetn', ['LocalStorageModule', 'googlechart', 'ngMaterial']);
 
 app.config(function (localStorageServiceProvider) {
     localStorageServiceProvider
@@ -48,11 +48,21 @@ app.controller('BalanceSheet', ['$scope','localStorageService', function($scope,
 
     // methods of the controller, will be hoisted
     function addLineItem( coefficient ){
-        $scope.lineItemForm.value *= coefficient;
-        $scope.ledger.push($scope.lineItemForm);
-        resetLineItemForm();
-        sumIntervals();
-        buildCharts();
+        if(validateLineItemForm()) {
+            $scope.lineItemForm.value *= coefficient;
+            $scope.ledger.push($scope.lineItemForm);
+            resetLineItemForm();
+            sumIntervals();
+            buildCharts();
+        }
+    }
+
+    function validateLineItemForm(){
+        $scope.lineItemForm.value = parseFloat($scope.lineItemForm.value, 10).toFixed(2)
+       return (
+            $scope.lineItemForm.label !== undefined &&
+            $scope.lineItemForm.interval !== undefined
+       );
     }
 
 
@@ -143,6 +153,7 @@ app.controller('BalanceSheet', ['$scope','localStorageService', function($scope,
     }
 
     function buildExpenseChart(){
+        return;
         var expenseChart = {
             type : 'PieChart',
             options : {

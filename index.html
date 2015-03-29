@@ -6,10 +6,19 @@
 
     <script src="vendor/angular/angular.min.js" type="text/javascript"></script>
     <script src="vendor/angular-local-storage/dist/angular-local-storage.min.js" type="text/javascript"></script>
+    <script src="vendor/angular-animate/angular-animate.min.js"></script>
+    <script src="vendor/angular-aria/angular-aria.min.js"></script>
+    <script src="vendor/angular-material/angular-material.min.js"></script>
     <script src="vendor/angular-google-chart/ng-google-chart.js" type="text/javascript"></script>
+
     <link rel="stylesheet" href="vendor/angular/angular-csp.css" />
-    <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="vendor/angular-material/angular-material.min.css" />
+    <!-- link href='http://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css' //-->
     <link href="css/styles.css" rel="stylesheet" />
+    <style>
+
+
+    </style>
 </head>
 <body>
 
@@ -20,13 +29,14 @@
     <div data-ng-controller="BalanceSheet">
         <div data-ng-bind="lineItemForm.interval"></div>
         <div data-ng-bind="type(lineItemForm.interval)"></div>
-        <form data-ng-submit="" class="lineItemForm">
+        <form data-nag-submit="" class="lineItemForm">
             Name: <input type="text" name="name" data-ng-model="lineItemForm.name" ng-model-options="{ debounce: 250 }" /> <br />
             Value: <input type="text" name="value" data-ng-model="lineItemForm.value" ng-model-options="{ debounce: 250 }" /> <br />
             <select data-ng-model="lineItemForm.interval">
                 <option data-ng-value="''+$index" data-ng-repeat="interval in intervals" data-ng-bind="interval.label"></option>
             </select>
             <br />
+
             <ul class="labels">
                 <li class="floatList" data-ng-repeat="label in labels">
                     <input type="radio" name="label" data-ng-value="$index" data-ng-attr-id="{{'label-'+$index}}" data-ng-model="lineItemForm.label" />
