@@ -153,7 +153,7 @@ app.controller('BalanceSheet', ['$scope','localStorageService', function($scope,
     }
 
     function buildExpenseChart(){
-        return;
+
         var expenseChart = {
             type : 'PieChart',
             options : {
@@ -183,8 +183,7 @@ app.controller('BalanceSheet', ['$scope','localStorageService', function($scope,
             expenseChart.data.rows.push(dataHash[label]);
         }
 
-        console.log(expenseChart);
-        $scope.expenseChart = expenseChart;
+        $scope.expenseChart = expenseChar;
     }
 
     function buildCharts(){
